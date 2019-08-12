@@ -1,0 +1,40 @@
+**Jayebot Commands List**
+###############################
+hi :wave: i'm jayebot :robot::sparkling_heart:
+it's nice to meet you~
+
+**meta**
+many commands have alternatives that are unlisted
+e.g. 'j!opossum', as an alternative to 'j!possum'
+the commands are also just the minimum that you need to type
+e.g. 'j!possum image' would work the same as 'j!possum'
+lower case is generally used for everything
+j!commands >> dms this document to you
+
+**random from list**
+j!possum >> posts a possum
+j!animal >> posts a cute animal
+j!sadcat >> posts a sad cat
+j!meme >> posts a meme
+j!tarot >> posts a major arcana tarot card
+j!8ball >> shakes an 8ball
+
+**foragery**
+jayebot fish >> catch a fish!
+jayebot bughunt >> catch a bug!
+jayebot forage >> go foraging!
+
+**random number games**
+j!coin >> gives heads or tails
+j!random >> says yes or no (also j!yes or no)
+j!dice >> picks a number from 1-6
+(also try j!d4, d6, d8, d10, d12, d20, d100)
+j!roulette >> take a risk :grimacing::gun:
+
+**conversational**
+there are a lot of these- find them out for yourself!
+e.g. j!hi, j!good morning, j!how are you
+there are also a lot of action/ reaction gifs and images
+e.g. j!hug, j!kiss, j!cry, j!shoot, j!blush, j!happy...
+
+hope this helped :relaxed:
