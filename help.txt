@@ -1,40 +1,51 @@
-**Jayebot Commands List**
-###############################
-hi :wave: i'm jayebot :robot::sparkling_heart:
+:sparkles: **Jayebot Commands List** :sparkles:
+####################
+hi :wave: i'm jayebot :sparkling_heart:
 it's nice to meet you~
+here's a list of some of the things that i can do!
 
-**meta**
-many commands have alternatives that are unlisted
-e.g. 'j!opossum', as an alternative to 'j!possum'
-the commands are also just the minimum that you need to type
-e.g. 'j!possum image' would work the same as 'j!possum'
-lower case is generally used for everything
-j!commands >> dms this document to you
+> **misc** :robot:
+j!help >> get this document in DMs
+j!say >> repeats whatever you specify after the command
+(e.g. j!say hello world, j!say aaaaaaaa, j!say ICUP)
 
-**random from list**
-j!possum >> posts a possum
+> **fortune telling** :crystal_ball:
+j!8ball >> shakes an 8ball
+j!fortune >> open a fortune cookie
+j!tarot >> posts a major arcana tarot card
+
+> **economy** :moneybag:
+j!daily >> use once per day for 100 jayebucks
+j!mine >> mine a single jayebuck :pick:
+j!bal >> check your jayebucks balance
+j!slots >> bet a *specified number* on a slot machine
+(e.g. j!slots 50, j!slots 100, j!slots 1312)
+
+> **pictures** :frame_photo:
 j!animal >> posts a cute animal
+j!possum >> posts a possum
 j!sadcat >> posts a sad cat
 j!meme >> posts a meme
-j!tarot >> posts a major arcana tarot card
-j!8ball >> shakes an 8ball
 
-**foragery**
-jayebot fish >> catch a fish!
-jayebot bughunt >> catch a bug!
-jayebot forage >> go foraging!
+> **foraging** :bug:
+j!fish >> catch a fish!
+j!bug >> catch a bug!
+j!forage >> go foraging!
 
-**random number games**
+> **random number games** :game_die:
 j!coin >> gives heads or tails
-j!random >> says yes or no (also j!yes or no)
-j!dice >> picks a number from 1-6
-(also try j!d4, d6, d8, d10, d12, d20, d100)
-j!roulette >> take a risk :grimacing::gun:
+j!random >> says yes or no
+j!dice >> picks from up to a *specified number*
+(e.g. j!dice 6, j!dice 20, j!dice 100)
+j!rr >> russian roulette with a specified number of bullets :grimacing::gun:
+(e.g. j!rr 2, but it defaults to 1 if no number is specified)
+j!myiq >> find out your IQ
 
-**conversational**
+> **conversational** :microphone:
 there are a lot of these- find them out for yourself!
-e.g. j!hi, j!good morning, j!how are you
-there are also a lot of action/ reaction gifs and images
+e.g. j!hi, j!good morning, j!how are you...
+this includes a lot of action/ reaction gifs and images
 e.g. j!hug, j!kiss, j!cry, j!shoot, j!blush, j!happy...
+and a few for specific memes/ copypasta, too
 
-hope this helped :relaxed:
+i hope this helped :relaxed:
