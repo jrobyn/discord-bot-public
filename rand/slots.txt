@@ -1,0 +1,6 @@
+:bell::seven::cherries:
+:seven::cherries::watermelon:
+:watermelon::cherries::seven:
+:bell::cherries::watermelon:
+:cherries::watermelon::bell:
+:watermelon::bell::cherries::
