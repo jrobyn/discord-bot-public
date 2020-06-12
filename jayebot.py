@@ -4,7 +4,10 @@ import random
 import os
 from datetime import datetime
 import time
-TOKEN = "NjAyMzI2NjcwMDc0MTgzNjk2.XTUQtA.VOFEu1P8rgBxvqJh8tiHFNJnDnY"
+#---------How to run your own bot using this code as a base...---------
+#1. create an application here: https://discordapp.com/developers/applications/
+#2. reveal 'client secret' and copy that into the TOKEN variable below
+TOKEN = "X"
 client = discord.Client()
 
 #runs whenever a message is sent
@@ -13,21 +16,7 @@ async def on_message(message):
     #won't reply to itself
     if message.author == client.user:
         return
-    ######################################
-    #reactions (''' for comment block):
-    #nitro 4 jaye :sakura:
-    '''wait message.add_reaction("\U0001F1F3") #nitro
-    await message.add_reaction("\U0001F1EE")
-    await message.add_reaction("\U0001F1FA")
-    await message.add_reaction("\U0001F1F2")
-    await message.add_reaction("\U0001F1F4")
-    await message.add_reaction("4\u20E3") #4
-    await message.add_reaction("\U0001F1EF") #jaye :sakura:
-    await message.add_reaction("\U0001F1E6")
-    await message.add_reaction("\U0001F1FE")
-    await message.add_reaction("\U0001F1EA")
-    await message.add_reaction("\U0001F338")'''
-
+    
     ######################################
     #commands that rely on other files:
     #readme
@@ -36,56 +25,56 @@ async def on_message(message):
         msg = open("help.txt").read()
         await message.author.send(msg)
     #fortune telling
-    elif message.content.startswith("j!8ball"):
+    if message.content.startswith("j!8ball"):
         await message.channel.send("you shake the 8-ball.....")
         time.sleep(1)
         msg = random.choice(open("rand/8ball.txt").readlines())
         await message.channel.send("it says.. " + msg)
-    elif message.content.startswith("j!fortune"):
+    if message.content.startswith("j!fortune"):
         msg = random.choice(open("rand/fortunes.txt").readlines())
         await message.channel.send(msg)
-    elif message.content.startswith("j!tarot"):
+    if message.content.startswith("j!tarot"):
         msg = random.choice(open("rand/tarot.txt").readlines())
         await message.channel.send(msg)
     #cute stuff
-    elif message.content.startswith("j!possum") or message.content.startswith("j!opossum"):
+    if message.content.startswith("j!possum") or message.content.startswith("j!opossum"):
         msg = random.choice(open("rand/possums.txt").readlines())
         await message.channel.send(msg) 
-    elif message.content.startswith("j!animal"):
+    if message.content.startswith("j!animal"):
         msg = random.choice(open("rand/animals.txt").readlines())
         await message.channel.send(msg)
-    elif message.content.startswith("j!sadcat"):
+    if message.content.startswith("j!sadcat"):
         msg = random.choice(open("rand/sadcats.txt").readlines())
         await message.channel.send(msg)
     #memes and pictures
-    elif message.content.startswith("j!meme"):
+    if message.content.startswith("j!meme"):
         msg = random.choice(open("rand/memes.txt").readlines())
         await message.channel.send(msg)
-    elif message.content.startswith("j!aesth"):
+    if message.content.startswith("j!aesth"):
         msg = random.choice(open("rand/aesthetics.txt").readlines())
         await message.channel.send(msg)  
-    elif message.content.startswith("j!altaesth"):
+    if message.content.startswith("j!altaesth"):
         msg = random.choice(open("rand/cute.txt").readlines())
         await message.channel.send(msg)
     #music
-    elif message.content.startswith("j!morrissey"):
+    if message.content.startswith("j!morrissey"):
         msg = random.choice(open("rand/mozz.txt").readlines())
         await message.channel.send(msg)
-    elif message.content.startswith("j!chill") or message.content.startswith("j!music"):
+    if message.content.startswith("j!chill") or message.content.startswith("j!music"):
         msg = random.choice(open("rand/chillmusic.txt").readlines())
         await message.channel.send(msg)
     #foragery games
-    elif message.content.startswith("j!fish"):
+    if message.content.startswith("j!fish"):
         await message.channel.send("you cast your line and wait for a fish...")
         time.sleep(2)
         msg = random.choice(open("rand/fish.txt").readlines())
         await message.channel.send("you caught " + msg)
-    elif message.content.startswith("j!bug"):
+    if message.content.startswith("j!bug"):
         await message.channel.send("you look for a bug to catch...")
         time.sleep(2)
         msg = random.choice(open("rand/bugs.txt").readlines())
         await message.channel.send("you caught " + msg)
-    elif message.content.startswith("j!forage"):
+    if message.content.startswith("j!forage"):
         await message.channel.send("you forage for a while...")
         time.sleep(2)
         msg = random.choice(open("rand/forage.txt").readlines())
@@ -107,7 +96,7 @@ async def on_message(message):
         bal = lines[0]
         await message.channel.send("your balance is {0} jayebucks! :moneybag:".format(bal))
     #get a lot of money once per day
-    elif message.content.startswith("j!daily"):
+    if message.content.startswith("j!daily"):
         makeUserFile()
         with open("users/" + str(message.author.id) + ".txt", "r") as f:
             lines = f.readlines()
@@ -135,7 +124,7 @@ async def on_message(message):
             for line in lines:
                 f.write(line)  
     #get just one money whenever
-    elif message.content.startswith("j!mine"):
+    if message.content.startswith("j!mine"):
         makeUserFile()
         with open("users/" + str(message.author.id) + ".txt", "r") as f:
             lines = f.readlines()
@@ -147,7 +136,7 @@ async def on_message(message):
                 f.write(line)
         await message.channel.send("you mine a jayebuck, and now have {0}! :dollar: :pick:".format(bal))
     #slot machine
-    elif message.content.startswith("j!slots "):
+    if message.content.startswith("j!slots "):
         moneySpent = message.content[8:]
         try:
             moneySpent = int(moneySpent)
@@ -209,20 +198,20 @@ async def on_message(message):
     ######################################
     #random number pickers:
     #coinflip games
-    elif message.content.startswith("j!coin"):
+    if message.content.startswith("j!coin"):
         flip = random.randint(1,2)
         if flip == 1:
             await message.channel.send("heads! https://i.imgur.com/aGQ2urm.jpg")
         else:
             await message.channel.send("tails! https://i.imgur.com/KtptwZR.jpg")
-    elif message.content.startswith("j!random"):
+    if message.content.startswith("j!random"):
         flip = random.randint(1,2)
         if flip == 1:
             await message.channel.send("yes")
         else:
             await message.channel.send("no")
     #dice/ number picking
-    elif message.content.startswith("j!dice "):
+    if message.content.startswith("j!dice "):
         num = message.content[7:]
         try:
             num = int(num)
@@ -232,7 +221,7 @@ async def on_message(message):
         flip = random.randint(1,num)
         await message.channel.send(flip)
     #iq picker
-    elif message.content.startswith("j!myiq") or message.content.startswith("j!my iq"):
+    if message.content.startswith("j!myiq") or message.content.startswith("j!my iq"):
         flip = random.randint(1,10)
         if flip < 6: #5 values
             flip = random.randint (80,120)
@@ -250,7 +239,7 @@ async def on_message(message):
                 flip = random.randint (151,200)
         await message.channel.send("your IQ is {0}! :brain:".format(flip))
     #russian roulette
-    elif message.content.startswith("j!rr"):
+    if message.content.startswith("j!rr"):
         num = message.content[4:]
         if num == '': 
             num = 1
@@ -283,7 +272,7 @@ async def on_message(message):
             await message.channel.send("bang! you're dead x _ x :boom:")
         elif num > 6:
             await message.channel.send("a revolver can only hold 6 bullets!")              
-    elif message.content.startswith("j!suicide"):
+    if message.content.startswith("j!suicide"):
         await message.channel.send("you spin the cylinder and put the gun to your head :relieved::gun:\ntake a deep breath!")
         time.sleep(3)
         await message.channel.send("bang! you're dead x _ x :boom:")
@@ -317,10 +306,6 @@ async def on_message(message):
     elif message.content.startswith("j!say "):
         userInput = message.content[6:]
         await message.channel.send(userInput)
-    elif message.content.startswith("j!general "):
-        userInput = message.content[10:]
-        channel = client.get_channel(677582115440820247) #*CYBERNETIC VOID ONLY*
-        await channel.send(userInput)
     #standardized replies
     elif message.content.startswith("j!hello") or message.content.startswith("j!hi"):
         await message.channel.send("hii {0}".format(message.author))
@@ -427,120 +412,10 @@ async def on_message(message):
         await message.channel.send(":rice: https://i.imgur.com/Ms1hVUA.gif")
     elif message.content.startswith("j!kys"):
         await message.channel.send("https://i.imgur.com/fnecGHi.png")
-    elif message.content.startswith("j!sex") or message.content.startswith("j!fuck") or message.content.startswith("j!lewd"):
-        await message.channel.send(":flushed: https://i.imgur.com/ynZoLIu.gif")
-    elif message.content.startswith("j!smd") or message.content.startswith("j!suck my dick") or message.content.startswith("j!blowjob"):
-        await message.channel.send(":flushed: https://i.imgur.com/5NFGWZC.gif")
-    elif message.content.startswith("j!disappointed") or message.content.startswith("j!unamused") or message.content.startswith("j!rape")  or message.content.startswith("j!nigger"):
+    elif message.content.startswith("j!disappointed") or message.content.startswith("j!unamused"):
         await message.channel.send("https://i.imgur.com/98DFzc7.jpg")
     elif message.content.startswith("j!type") or message.content.startswith("j!code") or message.content.startswith("j!hack"):
         await message.channel.send("https://i.imgur.com/eI2pkyP.gif")
-
-    ######################################
-    #meme library: *CYBERNETIC VOID ONLY*
-    #commanded
-    elif message.content.startswith("j!tits"):
-        await message.channel.send("https://i.imgur.com/AUOTl5e.png")
-    elif message.content.startswith("j!pussy"):
-        await message.channel.send("https://i.imgur.com/x0ZoxbP.jpg")
-    elif message.content.startswith("j!ass"):
-        await message.channel.send("https://i.imgur.com/8stW3wv.png")
-    elif message.content.startswith("j!cock"):
-        await message.channel.send("https://i.imgur.com/yaxxI57.jpg")
-    elif message.content.startswith("j!kilgore"):
-        await message.channel.send("https://i.imgur.com/a7rtJhp.jpg")
-    elif message.content.startswith("j!yoko"):
-        await message.channel.send("yokooooooo https://i.imgur.com/3AhJze3.jpg")
-    elif message.content.startswith("j!golf"):
-        await message.channel.send(":golfer:")
-    elif message.content.startswith("j!communis") or message.content.startswith("j!marx"):
-        await message.channel.send("https://i.imgur.com/HLKZubU.jpg")
-    elif message.content.startswith("j!deleuze"):
-        await message.channel.send("https://i.imgur.com/DDqW26d.jpg")
-    elif message.content.startswith("j!stalin"):
-        await message.channel.send("https://i.imgur.com/Uq1fqSA.png")
-    elif message.content.startswith("j!political compass"):
-        await message.channel.send("https://i.imgur.com/m92VhBN.png")
-    elif message.content.startswith("j!lezard"):
-        await message.channel.send("https://i.imgur.com/NH4Zpai.gif")
-    elif message.content.startswith("j!glitchylezard") or message.content.startswith("j!ymel"):
-        await message.channel.send("https://i.imgur.com/QpSCUWr.gif")
-    elif message.content.startswith("j!worm"):
-        await message.channel.send("https://i.imgur.com/1e32i3b.gif")
-    elif message.content.startswith("j!moid") or message.content.startswith("j!foid"):
-        await message.channel.send("https://i.imgur.com/4Il1twP.jpg")
-    elif message.content.startswith("j!women"):
-        await message.channel.send("https://i.imgur.com/q7Sqqxp.jpg")
-    elif message.content.startswith("j!images"):
-        await message.channel.send("https://i.imgur.com/ReBoqUo.jpg")
-    elif message.content.startswith("j!zizek"):
-        await message.channel.send("https://i.imgur.com/hw0VYNf.png")
-    elif message.content.startswith("j!isis"):
-        await message.channel.send("https://cdn.discordapp.com/attachments/602514369062109196/602557404407791703/isis.mp4")
-    elif message.content.startswith("j!anal") or message.content.startswith("j!doge"):
-        await message.channel.send("https://i.imgur.com/KG4HYnD.jpg")
-    elif message.content.startswith("j!honk"):
-        await message.channel.send("https://i.imgur.com/yCKcAPC.gif")
-    elif message.content.startswith("j!horny"):
-        await message.channel.send("https://i.imgur.com/iB9hwhM.jpg")
-    elif message.content.startswith("j!brain"):
-        await message.channel.send("https://i.imgur.com/6m2zqUo.gif")        
-    elif message.content.startswith("j!explain"):
-        await message.channel.send("ok\nso\nhow hegel put it is mind blowing\none must create a synthensis\non a philosophical meta-psychical government to create a sustainable position\nin order to codify and correlate this is a mind fuck")
-    elif message.content.startswith("j!condam") or message.content.startswith("j!send nudes") or message.content.startswith("j!slut") or message.content.startswith("j!whore"):
-        await message.channel.send("https://i.imgur.com/ILlEQ5K.jpg")
-    elif message.content.startswith("j!what happened") or message.content.startswith("j!did anything happen") or message.content.startswith("j!tiananmen"):
-        await message.channel.send("https://i.imgur.com/wJeNoBx.gif")
-    elif message.content.startswith("j!what time is it") or message.content.startswith("j!what is the time") or message.content.startswith("j!time") or message.content.startswith("j!falafel") or message.content.startswith("falafel"):
-        await message.channel.send("https://i.imgur.com/TBvJCDf.jpg")
-    #spam and copypasta
-    elif message.content.startswith("j!hrt"):
-        await message.channel.send("I want to impregnate a cute boy. I want to suck a cute boy dry and then inject cum down his dickhole and force him to fuck a girl and get her pregnant with my cum. I want to get fucked in the ass while i cum inside a girl. I want to see how long a cute boy could survive on nothing but my cum all day every day. I want to force a cute boy on hormone therapy until his hips are wider than his shoulders and his breasts are large enough to produce milk. I want to pour a cute boy's HRT milk into my cereal in the morning before i head off to work. I want to share a girl with a cute boy, taking turns getting her pregnant so that we can (technically) share our genes through a third party participant. I want to use science to create an egg out of a cute boy's cells, fertilize it and hire a surrogate mother. I want to come home to a cute boy cleaning dishes and breastfeeding a baby with HRT tits. I want to cum inside a cute boy while sucking milk out of his HRT tits I want to basically turn a cute boy into a tradwife and share our genes somehow to make a gay baby together.")
-    elif message.content.startswith("j!ban"):
-        await message.channel.send("@01011001011011110110101101101111 can you ban Jaye from ur server please. She doesn't send me nudes. I spent 20 minutes on a whole paragraph why she should send me her nudes and I even talked to her for 10 minutes but she did not send me anything. This type of behavior should not be accepted here.")
-    elif message.content.startswith("j!cum"):
-        await message.channel.send("Just me and my :two_hearts:daddy:two_hearts:, hanging out I got pretty hungry:eggplant: so I started to pout :disappointed: He asked if I was down :arrow_down:for something yummy :heart_eyes::eggplant: and I asked what and he said he'd give me his :sweat_drops:cummies!:sweat_drops: Yeah! Yeah!:two_hearts::sweat_drops: I drink them!:sweat_drops: I slurp them!:sweat_drops: I swallow them whole:sweat_drops: :heart_eyes: It makes :cupid:daddy:cupid: :blush:happy:blush: so it's my only goal... :two_hearts::sweat_drops::tired_face:Harder daddy! Harder daddy! :tired_face::sweat_drops::two_hearts: 1 cummy:sweat_drops:, 2 cummy:sweat_drops::sweat_drops:, 3 cummy:sweat_drops::sweat_drops::sweat_drops:, 4:sweat_drops::sweat_drops::sweat_drops::sweat_drops: I'm :cupid:daddy's:cupid: :crown:princess :crown:but I'm also a whore! :heart_decoration: He makes me feel squishy:heartpulse:!He makes me feel good:purple_heart:! :cupid::cupid::cupid:He makes me feel everything a little should!~ :cupid::cupid::cupid: :crown::sweat_drops::cupid:Wa-What!:cupid::sweat_drops::crown:")
-    elif message.content.startswith("j!daddy"):
-        await message.channel.send(":angel: daddy's :heart::sweat_drops::eggplant: little fidget spinner:dizzy: when daddy :revolving_hearts: feels horny he lifts :truck: me up☝️ and puts me on:on: his huge :weary::sweat_drops:dick:eggplant: and I spin :cyclone: and spin :cyclone: whirrrrrr :flushed::flushed:I get:ideograph_advantage: so:sos: dizzy:dizzy: but daddy:revolving_hearts: keeps spinning :dizzy: me untill I squirt:fountain::fountain: leaving me all wet:sweat_drops: and his cummies :baby_bottle::baby_bottle: are all inside:diamond_shape_with_a_dot_inside: me:flushed: god I'm such a:flushed: spinny :dizzy_face:dizzy:dizzy_face::dizzy_face: little slut for daddy!")
-    elif message.content.startswith("j!china") or message.content.startswith("j!xi"):
-        await message.channel.send(":flag_cn::hash::one::triumph: :flag_cn::hash::one::triumph: :flag_cn::hash::one::triumph: :flag_cn::hash::one::triumph: :flag_cn::hash::one::triumph:")
-    #spam overdrive
-    elif message.content.startswith("j!spam"):
-        for i in range(5):
-            await message.channel.send(":flag_cn::hash::one::triumph: :flag_cn::hash::one::triumph: :flag_cn::hash::one::triumph: :flag_cn::hash::one::triumph: :flag_cn::hash::one::triumph:")
-    elif message.content.startswith("j!manycondams") or message.content.startswith("j!many condams"):
-        for i in range(5):
-            await message.channel.send("https://i.imgur.com/ILlEQ5K.jpg")
-
-    ######################################
-    #special: *CYBERNETIC VOID ONLY*
-    #commands that don't use 'jayebot' as a prefix
-    elif message.content.startswith("fuck you") or message.content.startswith("i hate you"):
-        await message.channel.send("be nice to each other! uwu")
-    elif message.content.startswith("cum"):
-        await message.channel.send("#cumgang")
-    elif message.content.startswith("#freeyoko") or message.content.startswith("unban yoko"):
-        await message.channel.send("#freeyoko")
-    elif message.content.startswith("zizek")or message.content.startswith("zizek"):
-        await message.channel.send("**sniff**")
-    elif message.content.startswith("foid"):
-        await message.channel.send("you half to be nice to women")
-    elif message.content.startswith("im truecel") or message.content.startswith("i'm truecel"):
-        await message.channel.send("im truecel")
-    elif message.content.startswith("owo") or message.content.endswith("owo"):
-        await message.channel.send("owo")
-    elif message.content.startswith("uwu") or message.content.endswith("uwu"):
-        await message.channel.send("uwu")    
-    elif message.content.startswith("i miss her") or message.content.startswith("I miss her"):
-        await message.channel.send("https://cdn.discordapp.com/emojis/603364679615512587.png")
-    elif message.content.startswith("hoes mad"):
-        await message.channel.send("hoes mad")
-    elif message.content.endswith("cbt"):
-        await message.channel.send(":femdom:")
-    elif message.content.startswith("snailcat") or message.content.endswith("snailcat"):
-        await message.channel.send("https://cdn.discordapp.com/emojis/665358887511392266.png")
-    elif message.content.startswith("j!mybf") or "jaye's bf" in message.content.lower() or "my bf" in message.content.lower() or "chad" in message.content.lower() or "manlet" in message.content.lower():
-        await message.channel.send("my bf is 6'4")
 
 #when the bot starts up
 @client.event
