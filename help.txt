@@ -42,7 +42,11 @@ j!rr >> russian roulette with a specified number of bullets :grimacing::gun:
 j!myiq >> find out your IQ
 
 > **conversational** :microphone:
-there are a lot of these- find them out for yourself!
+j!say >> repeats back any text you write after the command
+j!choose x or y >> chooses between what you write in place of x and y
+prefix a question with a command and jayebot will try to answer!
+e.g. j!are, j!do,j!what, j!where, j!when, j!why...
+there are also a lot of generic commands you can discover for yourself
 e.g. j!hi, j!good morning, j!how are you...
 this includes a lot of action/ reaction gifs and images
 e.g. j!hug, j!kiss, j!cry, j!shoot, j!blush, j!happy...
