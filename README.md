@@ -1,6 +1,7 @@
 # jayebot-public
-public version of jayebot for discord
 
-this bot has lots of just-for-fun commands, e.g. 8ball, fortune telling, dice rolling, and memes
+This is a Discord bot that I created just for fun, and added to servers I talk in.
+It has many commands for fortune telling, random number games, memes, conversation, etc.
+It also now has a working economy with daily rewards, a slot machine game, and a monster girl gacha game.
 
-it includes basic economy functions too, such as daily rewards, and a slot machine game
+Anyone is welcome to use the code to help get their own bot working, and to adapt any games and commands for their own purposes.
