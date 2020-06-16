@@ -203,18 +203,26 @@ async def on_message(message):
         prizeList = lines[lineNo].split("] [")
         prizeListFirst = prizeList[0]
         prizeListFirst = prizeListFirst.split(" [")
-        prizeList[0] = prizeListFirst[1]
-        prizeList.insert(0,prizeListFirst[0])
-        lastItem = prizeList[len(prizeList) - 1]
-        if lastList == False:
-            prizeList[len(prizeList) - 1] = lastItem[:-2]
+        if len(prizeList) > 1:
+            prizeList[0] = prizeListFirst[1]
+            prizeList.insert(0,prizeListFirst[0])
+            lastItem = prizeList[len(prizeList) - 1]
+            if lastList == False:
+                prizeList[len(prizeList) - 1] = lastItem[:-2]
+            else:
+                prizeList[len(prizeList) - 1] = lastItem[:-1]            
+            prizeList = list(dict.fromkeys(prizeList))
+            string += str(prizeList[0])
+            for i in range(1,len(prizeList)):
+                string += str(prizeList[i]) + " | "
+            string = string[:-2]
         else:
-            prizeList[len(prizeList) - 1] = lastItem[:-1]            
-        prizeList = list(dict.fromkeys(prizeList))
-        string += str(prizeList[0])
-        for i in range(1,len(prizeList)):
-            string += str(prizeList[i]) + " | "
-        string = string[:-2]
+            string = str(prizeList[0])
+            if lastList == False:
+                string = string[:-2]
+            else:
+                string = string[:-1]
+            string = string.replace("[", "")
         return string
     if message.content.startswith("j!gacha buy"):
         makeUserFile()
