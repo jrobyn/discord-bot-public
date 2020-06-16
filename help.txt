@@ -6,8 +6,6 @@ here's a list of some of the things that i can do!
 
 > **misc** :robot:
 j!help >> get this document in DMs
-j!say >> repeats whatever you specify after the command
-(e.g. j!say hello world, j!say aaaaaaaa, j!say ICUP)
 
 > **fortune telling** :crystal_ball:
 j!8ball >> shakes an 8ball
@@ -20,6 +18,8 @@ j!mine >> mine a single jayebuck :pick:
 j!bal >> check your jayebucks balance
 j!slots >> bet a *specified number* on a slot machine
 (e.g. j!slots 50, j!slots 100, j!slots 1312)
+j!gacha >> view your monster girl gacha collection
+j!gacha buy >> buy a gacha capsule for 50 jayebucks
 
 > **pictures** :frame_photo:
 j!animal >> posts a cute animal

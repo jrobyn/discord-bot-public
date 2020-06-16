@@ -85,24 +85,27 @@ async def on_message(message):
     #make file if it doesn't exist
     def makeUserFile():
         if os.path.exists("users/" + str(message.author.id) + ".txt") == False:
-            f = open("users/" + str(message.author.id) + ".txt", "w")
-            f.write("0")
-            f.close()
+            #f = open("users/" + str(message.author.id) + ".txt", "w")
+            #f.close()
+            with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                lines = ["0\n","never\n","Rainbow: \n","Gold: \n","Pink: \n","Purple: \n","Green: \n","Blue: "]
+                for line in lines:
+                    f.write(line)  
     #show balance to user
     if message.content.startswith("j!bal"):
         makeUserFile()
         with open("users/" + str(message.author.id) + ".txt", "r") as f:
             lines = f.readlines()
         bal = lines[0]
-        await message.channel.send("your balance is {0} jayebucks! :moneybag:".format(bal))
+        await message.channel.send("your balance is {0} jayebucks! :moneybag:".format(bal[:-1]))
     #get a lot of money once per day
-    if message.content.startswith("j!daily"):
+    elif message.content.startswith("j!daily"):
         makeUserFile()
         with open("users/" + str(message.author.id) + ".txt", "r") as f:
             lines = f.readlines()
         currentDate = datetime.now()
-        if len(lines) > 1:
-            lastDate = datetime.strptime(lines[1], '%Y-%m-%d %H:%M:%S.%f')
+        if lines[1] != "never\n":
+            lastDate = datetime.strptime(lines[1][:-1], '%Y-%m-%d %H:%M:%S.%f')
             difference = currentDate - lastDate
             if difference.days == 0:
                 timeLeft = int(24 - (difference.seconds / 3600))
@@ -112,19 +115,19 @@ async def on_message(message):
                 bal = int(lines[0]) + 100
                 bal = str(bal)
                 lines[0] = bal + "\n"
-                lines[1] = str(datetime.now())
-                await message.channel.send("you collect 100, and now have {0} jayebucks! :money_mouth:".format(bal)) 
+                lines[1] = str(datetime.now()) + "\n"
+                await message.channel.send("you collect 100 jayebucks, and now have {0} total! :money_mouth:".format(bal)) 
         else:
-            bal = int(lines[0]) + 150
+            bal = int(lines[0]) + 125
             bal = str(bal)
             lines[0] = bal + "\n"
-            lines.append(str(datetime.now()))
-            await message.channel.send("you collect 100, and now have {0} jayebucks! :money_mouth:".format(bal))  
+            lines[1] = str(datetime.now()) + "\n"
+            await message.channel.send("you collect 100 jayebucks, plus a beginner's bonus of 25, and now have {0} total! :money_mouth:".format(bal))  
         with open("users/" + str(message.author.id) + ".txt", "w") as f:
             for line in lines:
                 f.write(line)  
     #get just one money whenever
-    if message.content.startswith("j!mine"):
+    elif message.content.startswith("j!mine"):
         makeUserFile()
         with open("users/" + str(message.author.id) + ".txt", "r") as f:
             lines = f.readlines()
@@ -136,7 +139,7 @@ async def on_message(message):
                 f.write(line)
         await message.channel.send("you mine a jayebuck, and now have {0}! :dollar: :pick:".format(bal))
     #slot machine
-    if message.content.startswith("j!slots "):
+    elif message.content.startswith("j!slots "):
         moneySpent = message.content[8:]
         try:
             moneySpent = int(moneySpent)
@@ -160,33 +163,33 @@ async def on_message(message):
                 win = moneySpent * 2
                 newBal += win
                 await message.channel.send(":seven::seven::seven: | jackpot!!\nyou make 300% of your bet!\n{0} + {1} = {2} jayebucks".format(bal,win,newBal))
-            if payout == 1:
+            elif payout == 1:
                 win = moneySpent + (moneySpent // 2)
                 newBal += win
                 await message.channel.send(":seven::seven::bell: | amazing!\nyou make 250% of your bet!\n{0} + {1} = {2} jayebucks".format(bal,win,newBal))
-            if payout == 2:
+            elif payout == 2:
                 win = moneySpent
                 newBal += win
                 await message.channel.send(":cherries::cherries::cherries: | awesome!!\nyou make 200% of your bet!\n{0} + {1} = {2} jayebucks".format(bal,win,newBal))
-            if payout == 3:
+            elif payout == 3:
                 win = moneySpent // 2
                 newBal += win
                 await message.channel.send(":cherries::cherries::seven: | great!\nyou make 150% of your bet!\n{0} + {1} = {2} jayebucks".format(bal,win,newBal))
-            if payout == 4:
+            elif payout == 4:
                 win = (moneySpent // 2) + (moneySpent // 4)
                 newBal += win
                 await message.channel.send(":bell::bell::bell: | wow!!\nyou make 175% of your bet!\n{0} + {1} = {2} jayebucks".format(bal,win,newBal))
-            if payout == 5:
+            elif payout == 5:
                 await message.channel.send(":bell::bell::watermelon: | no loss!\nyou make back your bet.\n{0} +/- 0 = {0} jayebucks.".format(bal))
-            if payout == 6:
+            elif payout == 6:
                 win = moneySpent // 4
                 newBal += win
                 await message.channel.send(":watermelon::watermelon::watermelon: | neat!\nyou make 125% of your bet.\n{0} + {1} = {2} jayebucks".format(bal,win,newBal))               
-            if payout == 7:
+            elif payout == 7:
                 loss = moneySpent // 4
                 newBal -= loss
                 await message.channel.send(":watermelon::watermelon::bell: | small loss!\nyou get back just 75% of your bet.\n{0} - {1} = {2} jayebucks".format(bal,loss,newBal))  
-            if payout > 7:
+            elif payout > 7:
                 newBal -= moneySpent
                 slots = random.choice(open("rand/slots.txt").readlines())
                 await message.channel.send("{0} | oof, you lost your bet!\nbetter luck next time.\n{1} - {2} = {3} jayebucks".format(slots[:-1],bal,moneySpent,newBal))                
@@ -194,6 +197,90 @@ async def on_message(message):
             with open("users/" + str(message.author.id) + ".txt", "w") as f:
                 for line in lines:
                     f.write(line)
+    #gacha game
+    def formattedList(lineNo,lastList):
+        string = ""      
+        prizeList = lines[lineNo].split("] [")
+        prizeListFirst = prizeList[0]
+        prizeListFirst = prizeListFirst.split(" [")
+        prizeList[0] = prizeListFirst[1]
+        prizeList.insert(0,prizeListFirst[0])
+        lastItem = prizeList[len(prizeList) - 1]
+        if lastList == False:
+            prizeList[len(prizeList) - 1] = lastItem[:-2]
+        else:
+            prizeList[len(prizeList) - 1] = lastItem[:-1]            
+        prizeList = list(dict.fromkeys(prizeList))
+        string += str(prizeList[0])
+        for i in range(1,len(prizeList)):
+            string += str(prizeList[i]) + " | "
+        string = string[:-2]
+        return string
+    if message.content.startswith("j!gacha buy"):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()
+        bal = int(lines[0])
+        if bal < 50:
+            await message.channel.send("the gacha game costs 50 jayebucks, but you only have {0} :pensive:\nhave you collected your j!daily?".format(bal))
+        else:
+            await message.channel.send("you put 50 jayebucks in the machine and turn the lever! :star2:\n(don't spam this command or it might not save your prizes!)")
+            time.sleep(1)
+
+            payout = random.randrange(1000)
+            if payout == 666:
+                await message.channel.send("what?! a black caspule! oh no! <:gachaBlack:722496033635958784>")
+                await message.channel.send("it's the globglogabgalab! he cannot be contained!\nhttps://i.imgur.com/4qxDNNX.png")
+            else:
+                payout = random.randrange(16)
+                if payout == 0:
+                    await message.channel.send("wow! you got a super rare rainbow capsule! <:gachaRainbow:721729452106711140>")
+                    prize = random.choice(open("rand/gachaRainbow.txt").readlines())
+                    prize = prize.split(' * ')
+                    lines[2] = lines[2][:-1] + " {0}\n".format(prize[0])
+                elif payout < 3:
+                    await message.channel.send("awesome! you got a rare golden capsule! <:gachaGold:721729451909709924>")
+                    prize = random.choice(open("rand/gachaGold.txt").readlines())
+                    prize = prize.split(' * ')
+                    lines[3] = lines[3][:-1] + " {0}\n".format(prize[0])
+                elif payout < 6:
+                    await message.channel.send("cute! you got a pink capsule! <:gachaPink:721729453218070578>")
+                    prize = random.choice(open("rand/gachaPink.txt").readlines())
+                    prize = prize.split(' * ')
+                    lines[4] = lines[4][:-1] + " {0}\n".format(prize[0])
+                elif payout < 9:
+                    await message.channel.send("spooky! you got a purple capsule! <:gachaPurple:721729452127682580>")
+                    prize = random.choice(open("rand/gachaPurple.txt").readlines())
+                    prize = prize.split(' * ')
+                    lines[5] = lines[5][:-1] + " {0}\n".format(prize[0])
+                elif payout < 12:
+                    await message.channel.send("far out! you got a green capsule! <:gachaGreen:721729451963973682>")
+                    prize = random.choice(open("rand/gachaGreen.txt").readlines())
+                    prize = prize.split(' * ')
+                    lines[6] = lines[6][:-1] + " {0}\n".format(prize[0])
+                else:
+                    await message.channel.send("neat! you got a blue capsule! <:gachaClear:721729451909447791>")
+                    prize = random.choice(open("rand/gachaBlue.txt").readlines())
+                    prize = prize.split(' * ')
+                    lines[7] = lines[7] + " {0}".format(prize[0])
+                await message.channel.send("{0}\n{1}".format(prize[0],prize[1]))
+                bal -= 50
+                lines[0] = str(bal) + "\n"
+                with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                    for line in lines:
+                        f.write(line)
+    elif message.content.startswith("j!gacha"):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()            
+        rainbow = formattedList(2,False)
+        gold = formattedList(3,False)
+        pink = formattedList(4,False)
+        purple = formattedList(5,False)
+        green = formattedList(6,False)
+        blue = formattedList(7,True)
+        await message.channel.send("type 'j!gacha buy' to get a gacha capsule for 50 jayebucks!\ntypes available: <:gachaRainbow:721729452106711140> <:gachaGold:721729451909709924> <:gachaPink:721729453218070578> <:gachaPurple:721729452127682580> <:gachaGreen:721729451963973682> <:gachaClear:721729451909447791>")
+        await message.channel.send("<:wingLeft:721764140254756975> ~!~ your collection ~!~ <:wingRight:721764140053561450>\nduplicates removed for ease of reading\n{0}\n{1}\n{2}\n{3}\n{4}\n{5}".format(rainbow,gold,pink,purple,green,blue))
                         
     ######################################
     #random number pickers:
@@ -280,24 +367,26 @@ async def on_message(message):
     ######################################
     #conversational:
     #randomized answers to questions
-    elif message.content.startswith("j!do ") or message.content.startswith("j!does ") or message.content.startswith("j!can ") or message.content.startswith("j!will ") or message.content.startswith("j!should ") or message.content.startswith("j!is ") or message.content.startswith("j!are "):
-        answers = ["yes","yep","no","yeah!","i believe so!","nope!","hmm... yeah","hmm... no","sure","nah","absolutely!","absolutely not","maybe","i don't really know"]
-        await message.channel.send(random.choice(answers))
+    ######################################
+    #conversational:
+    #randomized answers to questions
+    elif message.content.startswith("j!do ") or message.content.startswith("j!does ") or message.content.startswith("j!can ") or message.content.startswith("j!will ") or message.content.startswith("j!should ") or message.content.startswith("j!is ") or message.content.startswith("j!are ") or message.content.startswith("j!am "):
+        msg = random.choice(open("rand/yesno.txt").readlines())
+        await message.channel.send(msg)
     elif message.content.startswith("j!where "):
-        answers = ["in space","somewhere in idaho","the big apple","cuba","antartica","a drug den in colombia","this server","the eiffel tower","on mars","pizza hut","the sahara desert","siberia","in a maximum security prison"]
-        await message.channel.send(random.choice(answers))
+        msg = random.choice(open("rand/where.txt").readlines())
+        await message.channel.send(msg)
     elif message.content.startswith("j!when "):
-        answers = ["yesterday","today","tomorrow","in a million years","in ten years","in a year's time","this morning","this afternoon","this evening","tonight","at the next full moon","whens the stars are aligned","when you are old and grey","when the stars are aligned"]
-        await message.channel.send(random.choice(answers))
+        msg = random.choice(open("rand/when.txt").readlines())
+        await message.channel.send(msg)
     elif message.content.startswith("j!who "):
-        answers = ["the KGB","mormons","xi jinping","the harry potter fandom","furries","nazis","russian hackers","the clinton foundation","the trump administration","antifa","anarchists","escaped monkeys","rogue androids","skynet","god","mole people","night goblins","jazz musicians","the KKK","cowboys","meth addicts","leather fetishists"]
-        await message.channel.send(random.choice(answers))
+        msg = random.choice(open("rand/who.txt").readlines())
+        await message.channel.send(msg)
     elif message.content.startswith("j!what "):
-        answers = ["what"]
-        await message.channel.send(random.choice(answers))
-    elif message.content.startswith("j!why "):
-        answers = ["lots of tiny worms","a plague of frogs","the skeleton war","the forever war","i got a spoon stuck in the dishwasher","big nukes","russian hackers","it seemed right at the time","human nature","it only exists in that it pleases me","the stars were aligned correctly","it is gods will","the machine god wills it"]
-        await message.channel.send(random.choice(answers))
+        await message.channel.send("what")
+    elif message.content.startswith("j!why"):
+        msg = random.choice(open("rand/why.txt").readlines())
+        await message.channel.send(msg)
     #repeats back text
     elif message.content.startswith("j!choose "):
         userInput = message.content[9:]
@@ -337,8 +426,6 @@ async def on_message(message):
         await message.channel.send("hot x_x")
     elif message.content.startswith("j!joke") or message.content.startswith("j!tell me a joke"):
         await message.channel.send("why didt he skeleton cross the road?\nbeucause he had nobody to go with :slight_smile:")
-    elif message.content.startswith("j!retard") or message.content.startswith("j!okay") or message.content.startswith("j!ok"):
-        await message.channel.send("ok retadr")
     elif message.content.startswith("j!you're gay") or message.content.startswith("j!your gay") or message.content.startswith("j!gay"):
         await message.channel.send("no your gay")
     elif message.content.startswith("j!sucks") or message.content.startswith("j!you suck") or message.content.startswith("j!die") or message.content.startswith("j!get lost"):
