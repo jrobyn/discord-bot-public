@@ -1,55 +1,38 @@
 :sparkles: **Jayebot Commands List** :sparkles:
-####################
-hi :wave: i'm jayebot :sparkling_heart:
-it's nice to meet you~
+hi :wave: i'm jayebot :sparkling_heart: it's nice to meet you~
 here's a list of some of the things that i can do!
 
 > **misc** :robot:
-j!help >> get this document in DMs
-
+> j!help >> get this document in DMs
 > **fortune telling** :crystal_ball:
-j!8ball >> shakes an 8ball
-j!fortune >> open a fortune cookie
-j!tarot >> posts a major arcana tarot card
-
-> **economy** :moneybag:
-j!daily >> use once per day for 100 jayebucks
-j!mine >> mine a single jayebuck :pick:
-j!bal >> check your jayebucks balance
-j!slots >> bet a *specified number* on a slot machine
-(e.g. j!slots 50, j!slots 100, j!slots 1312)
-j!gacha >> view your monster girl gacha collection
-j!gacha buy >> buy a gacha capsule for 50 jayebucks
-
+> j!8ball, j!fortune, j!tarot
 > **pictures** :frame_photo:
-j!animal >> posts a cute animal
-j!possum >> posts a possum
-j!sadcat >> posts a sad cat
-j!meme >> posts a meme
-
+> j!animal, j!possum, j!sadcat, j!meme
 > **foraging** :bug:
-j!fish >> catch a fish!
-j!bug >> catch a bug!
-j!forage >> go foraging!
+> j!fish, j!bug, j!forage
 
 > **random number games** :game_die:
-j!coin >> gives heads or tails
-j!random >> says yes or no
-j!dice >> picks from up to a *specified number*
-(e.g. j!dice 6, j!dice 20, j!dice 100)
-j!rr >> russian roulette with a specified number of bullets :grimacing::gun:
-(e.g. j!rr 2, but it defaults to 1 if no number is specified)
-j!myiq >> find out your IQ
+> j!coin, j!random, j!myiq
+> j!dice - you can specify the size of the die, e.g. j!dice 20
+> j!rr - you can specify number of bullets, e.g. j!rr 2 :grimacing::gun:
+
+> **economy** :moneybag:
+> j!bal - check your jayebucks balance
+> j!daily - get a daily reward of 75 - 125 jayebucks
+> j!mine, j!find - alternate these to farm small amounts of jayebucks :pick:
+> j!stats - scaling exp levels for j!mine and j!find
+> j!slots - gamble a specified amount on a slot machine
+> e.g. j!slots 50, j!slots 100, j!slots 1312
+> j!gacha - view your gacha collection
+> j!gacha buy - buy a monster girl gacha capsule (60 jayebucks)
+> j!gacha all - view your gacha collection including duplicates (messy)
 
 > **conversational** :microphone:
-j!say >> repeats back any text you write after the command
-j!choose x or y >> chooses between what you write in place of x and y
-prefix a question with a command and jayebot will try to answer!
-e.g. j!are, j!do,j!what, j!where, j!when, j!why...
-there are also a lot of generic commands you can discover for yourself
-e.g. j!hi, j!good morning, j!how are you...
-this includes a lot of action/ reaction gifs and images
-e.g. j!hug, j!kiss, j!cry, j!shoot, j!blush, j!happy...
-and a few for specific memes/ copypasta, too
+> j!say - repeats back any text you write after the command
+> j!choose x or y - chooses between what you write in place of x and y
+> prefix a question with a command and jayebot will try to answer!
+> e.g. j!are, j!do,j!what, j!where, j!when, j!why
+> there are lots of more generic commands! find them out for yourself!
+> e.g. j!hi, j!goodnight, j!hug, j!blush, j!shoot
 
 i hope this helped :relaxed:
