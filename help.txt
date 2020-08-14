@@ -18,20 +18,28 @@ here's a list of some of the things that i can do!
 
 > **economy** :moneybag:
 > j!bal - check your jayebucks balance
-> j!daily - get a daily reward of 75 - 125 jayebucks
-> j!mine, j!find - alternate these to farm small amounts of jayebucks :pick:
-> j!stats - scaling exp levels for j!mine and j!find
-> j!slots - gamble a specified amount on a slot machine
+> j!daily - get a daily reward of 75 - 125 j$
+> j!mine/ j!find - alternate these to farm small amounts of j$ :pick:
+> j!stats - view your exp and levels for j!mine/ j!find
+> j!slots - gamble a specified amount of j$ on a slot machine
 > e.g. j!slots 50, j!slots 100, j!slots 1312
 > j!gacha - view your gacha collection
-> j!gacha buy - buy a monster girl gacha capsule (60 jayebucks)
+> j!gacha buy - buy a monster girl gacha capsule (60 j$)
 > j!gacha all - view your gacha collection including duplicates (messy)
+
+> **pets** :cat:
+> j!pet - view your pet and their statistics
+> j!pet buy - buy a random pet (200 j$) :cat2:
+> j!pet feed - sharply raise pet happiness (20 j$)
+> j!pet train - help your pet level up :tada:
+> j!pet play - spend some time with your pet
 
 > **conversational** :microphone:
 > j!say - repeats back any text you write after the command
+> j!rate - rates anything you write after the command
 > j!choose x or y - chooses between what you write in place of x and y
-> prefix a question with a command and jayebot will try to answer!
-> e.g. j!are, j!do,j!what, j!where, j!when, j!why
+> prefix a question with a command and jayebot will try to answer! :speech_left: 
+> e.g. j!are, j!do, j!what, j!where, j!when, j!why
 > there are lots of more generic commands! find them out for yourself!
 > e.g. j!hi, j!goodnight, j!hug, j!blush, j!shoot
 

@@ -253,52 +253,20 @@ async def on_message(message):
     #stats for j!mine and j!find
     def determineLevel(totalEarned):
         experience = int(totalEarned / 5)
-        nextLevel = 10
-        if experience < nextLevel:
-            level = 0
-        else:
-            nextLevel = 25
-            if experience < nextLevel:
-                level = 1
+        levels = [[0,10],[1,25],[2,50],[3,75],[4,100],[5,150],[6,200],[7,275],[8,350],[9,425],[10,500],[11,600],[12,750],[13,1000],[14,1300],[15,1600],[16,2000],[17,2500],[18,3000],[19,4000],[20,"MAXXED"]]
+        stop = False
+        i = 0
+        while stop == False:
+            if levels[i][0] == 20:
+                level = levels[i][0]
+                nextLevel = levels[i][1]
+                stop = True
+            elif levels[i][1] > experience:
+                level = levels[i][0]
+                nextLevel = levels[i][1]
+                stop = True
             else:
-                nextLevel = 50
-                if experience < nextLevel:
-                    level = 2
-                else:
-                    nextLevel = 75
-                    if experience < nextLevel:
-                        level = 3
-                    else:
-                        nextLevel = 100
-                        if experience < nextLevel:
-                            level = 4
-                        else:
-                            nextLevel = 150
-                            if experience < nextLevel:
-                                level = 5
-                            else:
-                                nextLevel = 200
-                                if experience < nextLevel:
-                                    level = 6
-                                else:
-                                    nextLevel = 275
-                                    if experience < nextLevel:
-                                        level = 7
-                                    else:
-                                        nextLevel = 350
-                                        if experience < nextLevel:
-                                            level = 8
-                                        else:
-                                            nextLevel = 425
-                                            if experience < nextLevel:
-                                                level = 9
-                                            else:
-                                                nextLevel = 500
-                                                if experience < nextLevel:
-                                                    level = 10
-                                                else:
-                                                    level = 11
-                                                    nextLevel = "Maxed!"
+                i += 1
         return level,experience,nextLevel
     if message.content.startswith("j!stats"):
         makeUserFile()
@@ -464,7 +432,265 @@ async def on_message(message):
         blue = formattedList(7,True)
         await message.channel.send("type 'j!gacha buy' to get a gacha capsule for 60 jayebucks!\ntypes available: <:gachaRainbow:721729452106711140> <:gachaGold:721729451909709924> <:gachaPink:721729453218070578> <:gachaPurple:721729452127682580> <:gachaGreen:721729451963973682> <:gachaClear:721729451909447791>")
         await message.channel.send("<:wingLeft:721764140254756975> ~!~ your collection ~!~ <:wingRight:721764140053561450>\nduplicates removed for ease of reading\n{0}\n{1}\n{2}\n{3}\n{4}\n{5}".format(rainbow,gold,pink,purple,green,blue))
-                        
+
+    #pet stuff:
+    def randomName():
+        name1 = ["Mamu","Mamo","Mumi","No","Ha","Fu","Lu","Chi","Cherry","Poke","Pii","Awo","Wub","Kub","Blub","Sand","Smush","Starr","Ja","Goo"]
+        name2 = ["chi","chu","chan","ko","ki","bu","bo","ban","kun","lily","hana","id","waa","blub","byby","ray",""]
+        return random.choice(name1) + random.choice(name2)
+    def petTrain():
+        lines[18] = str(datetime.now()) + "\n"
+        rewards = random.randrange(5,16)
+        lines[16] = int(lines[16][:-1]) + rewards
+        lines[16] = str(lines[16]) + "\n"               
+        happydown = random.randrange(5,16)
+        lines[17] = int(lines[17][:-1]) - happydown
+        if lines[17] < 1:
+            lines[17] = 1
+        lines[17] = str(lines[17]) + "\n"
+        lines[19] = int(lines[19][:-1]) + 1
+        lines[19] = str(lines[19]) + "\n"
+        return lines, rewards
+    def petPlay():
+        lines[20] = str(datetime.now()) + "\n"
+        rewards = random.randrange(2,5)
+        lines[16] = int(lines[16][:-1]) + rewards
+        lines[16] = str(lines[16]) + "\n"               
+        happyup = random.randrange(2,7)
+        lines[17] = int(lines[17][:-1]) + happyup
+        if lines[17] > 100:
+            lines[17] = 100
+        lines[17] = str(lines[17]) + "\n"
+        lines[21] = int(lines[21][:-1]) + 1
+        lines[21] = str(lines[21]) + "\n"
+        return lines, rewards
+    if message.content.startswith("j!pet buy"):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()
+        if lines[12][:-1] == "0":
+            bal = int(lines[0])
+            if bal == 0:
+                await message.channel.send("a pet costs 200 jayebucks, but you're completely out of money! have you collected your j!daily?")            
+            elif bal < 200:
+                await message.channel.send("a pet costs 200 jayebucks, but you only have {0} :pensive:".format(bal))
+            else:
+                bal -= 200
+                lines[0] = str(bal) + "\n"
+                await message.channel.send("you buy a new pet for 200 jayebucks! you have {0} j$ remaining".format(bal))
+                lines[12] = "1\n"
+                lines[13] = str(datetime.now()) + "\n"
+                lines[14] = random.choice(open("rand/pets.txt").readlines())
+                if lines[14] == "https://i.imgur.com/7XfshwY.png":
+                    lines[14] += "\n"
+                lines[15] = randomName() + "\n"
+                lines[17] = "80\n"
+                await message.channel.send("the name of your new pet is **{0}**! :star:\nif you would like to rename it, type the new name after the 'j!pet name ' command".format(lines[15][:-1]))
+                await message.channel.send(lines[14][:-1])                    
+                with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                    for line in lines:
+                        f.write(line)
+        else:
+            await message.channel.send("it seems like you already have a pet!\nif you want to get rid of **{0}**, type 'j!pet abandon'".format(lines[15][:-1]))
+    elif message.content.startswith("j!pet abandon"):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()
+        if lines[12][:-1] == "0":
+            await message.channel.send("you don't have a pet to abandon! try 'j!pet buy'!")
+        else:
+            await message.channel.send("you abandon your pet, **{0}** :crying_cat_face:".format(lines[15][:-1]))
+            lines[12] = "0\n"
+            lines[13] = "never\n"
+            lines[14] = "none\n"
+            lines[15] = "none\n"
+            lines[16] = "0\n"
+            lines[17] = "0\n"
+            lines[18] = "never\n"
+            lines[19] = "0\n"
+            lines[20] = "never\n"
+            lines[21] = "0\n"
+            lines[22] = "0\n"
+            with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                for line in lines:
+                    f.write(line)
+    elif message.content.startswith("j!pet name "):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()
+        if lines[12][:-1] == "0":
+            await message.channel.send("you don't have a pet to rename! try 'j!pet buy'!")
+        else:
+            userInput = message.content[11:]
+            if len(userInput) > 1:
+                if len(userInput) < 20:
+                    await message.channel.send("your pet is now called **{0}**! uwu".format(userInput))
+                    lines[15] = userInput + "\n"
+                    with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                        for line in lines:
+                            f.write(line)
+                else:
+                    await message.channel.send("try to keep the name under 20 characters, please!")
+            else:
+                await message.channel.send("try to keep the name at least 2 characters, please!")
+    elif message.content.startswith("j!pet train"):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()
+        if lines[12][:-1] == "0":
+            await message.channel.send("you need a pet first! try j!pet buy!")
+        else:
+            #lines[18] = timer, lines[16] = exp total, lines[17] = happiness, lines[19] = train count
+            currentDate = datetime.now()
+            if int(lines[17][:-1]) < 50:
+                await message.channel.send("your pet doesn't feel like training as their happiness is only {0}/100 :crying_cat_face:\ntry j!pet play a few times, or j!pet feed (20j$) for a larger boost".format(lines[17][:-1]))
+            else:
+                if lines[18] != "never\n":
+                    lastDate = datetime.strptime(lines[18][:-1], '%Y-%m-%d %H:%M:%S.%f')
+                    difference = currentDate - lastDate
+                    leftToWait = 6 - difference.seconds
+                    if difference.seconds > 6:
+                        training = petTrain()
+                        lines = training[0]
+                        await message.channel.send("it earned **{0} exp** and now has {1}!\nit's hard work, so its happiness goes down to {2}/100".format(training[1],lines[16][:-1],lines[17][:-1]))
+                        rewards = random.randrange(6)
+                        if rewards == 0:
+                            payout = random.randrange(7,27)
+                            bal = int(lines[0]) + payout
+                            bal = str(bal)
+                            lines[0] = bal + "\n"
+                            await message.channel.send("your pet also won **{0} jayebucks** in a competition!".format(payout))
+                        elif rewards == 1:
+                            payout = random.randrange(2,10)
+                            bal = int(lines[0]) + payout
+                            bal = str(bal)
+                            lines[0] = bal + "\n"
+                            await message.channel.send("your pet also made **{0} jayebucks** by performing on the street!".format(payout))
+                        with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                            for line in lines:
+                                f.write(line)
+                    else:
+                        if leftToWait > 0:
+                            await message.channel.send("there's a 6 second cooldown, so you need to wait at least {0} more seconds!".format(leftToWait))
+                        else:
+                            await message.channel.send("there's a 6 second cooldown, so give it a moment!")
+                else:
+                    training = petTrain()
+                    lines = training[0]
+                    await message.channel.send("it earned **{0} exp** and now has {1}!\nit's hard work, so its happiness goes down to {2}/100".format(training[1],lines[16][:-1],lines[17][:-1]))
+                    rewards = random.randrange(6)
+                    if rewards == 0:
+                        payout = random.randrange(7,27)
+                        bal = int(lines[0]) + payout
+                        bal = str(bal)
+                        lines[0] = bal + "\n"
+                        await message.channel.send("your pet also won **{0} jayebucks** in a competition!".format(payout))
+                    elif rewards == 1:
+                        payout = random.randrange(2,10)
+                        bal = int(lines[0]) + payout
+                        bal = str(bal)
+                        lines[0] = bal + "\n"
+                        await message.channel.send("your pet also made **{0} jayebucks** by performing on the street!".format(payout))
+                    with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                        for line in lines:
+                            f.write(line)       
+    elif message.content.startswith("j!pet play"):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()
+        if lines[12][:-1] == "0":
+            await message.channel.send("you need a pet first! try j!pet buy!")
+        else:
+            #lines[20] = timer, lines[16] = exp total, lines[17] = happiness, lines[21] = play count
+            currentDate = datetime.now()
+            if lines[20] != "never\n":
+                lastDate = datetime.strptime(lines[20][:-1], '%Y-%m-%d %H:%M:%S.%f')
+                difference = currentDate - lastDate
+                leftToWait = 6 - difference.seconds
+                if difference.seconds > 6:
+                    playing = petPlay()
+                    lines = playing[0]
+                    await message.channel.send("you play with your pet :blush: :baseball:\nits happiness increased to {0}/100, and it earned {1} exp!".format(lines[17][:-1],playing[1]))
+                    rewards = random.randrange(6)
+                    if rewards == 0:
+                        payout = random.randrange(4,13)
+                        bal = int(lines[0]) + payout
+                        bal = str(bal)
+                        lines[0] = bal + "\n"
+                        await message.channel.send("also, a cute picture of your pet went viral, making you **{0} jayebucks**!".format(payout))
+                    elif rewards == 1:
+                        payout = random.randrange(2,6)
+                        bal = int(lines[0]) + payout
+                        bal = str(bal)
+                        lines[0] = bal + "\n"
+                        await message.channel.send("also, on a walk, your pet found **{0} jayebucks** in a lost wallet!".format(payout))
+                    with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                        for line in lines:
+                            f.write(line)
+                else:
+                    if leftToWait > 0:
+                        await message.channel.send("there's a 6 second cooldown, so you need to wait at least {0} more seconds!".format(leftToWait))
+                    else:
+                        await message.channel.send("there's a 6 second cooldown, so give it a moment!")
+            else:
+                playing = petPlay()
+                lines = playing[0]
+                await message.channel.send("you play with your pet :blush: :baseball:\nits happiness increased to {0}/100, and it earned {1} exp!".format(lines[17][:-1],playing[1]))
+                rewards = random.randrange(6)
+                if rewards == 0:
+                    payout = random.randrange(4,13)
+                    bal = int(lines[0]) + payout
+                    bal = str(bal)
+                    lines[0] = bal + "\n"
+                    await message.channel.send("also, a cute picture of your pet went viral, making you **{0} jayebucks**!".format(payout))
+                elif rewards == 1:
+                    payout = random.randrange(2,6)
+                    bal = int(lines[0]) + payout
+                    bal = str(bal)
+                    lines[0] = bal + "\n"
+                    await message.channel.send("also, on a walk, your pet found **{0} jayebucks** in a lost wallet!".format(payout))
+                with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                    for line in lines:
+                        f.write(line)    
+    elif message.content.startswith("j!pet feed"):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()
+        if lines[12][:-1] == "0":
+            await message.channel.send("you need a pet first! try j!pet buy!")
+        else:
+            bal = int(lines[0])
+            if bal == 0:
+                await message.channel.send("feeding your pet costs 20 jayebucks, but you have none!")            
+            elif bal < 20:
+                await message.channel.send("feeding your pet costs 20 jayebucks, but you only have {0} :pensive:".format(bal))
+            else:
+                bal -= 20
+                lines[0] = str(bal) + "\n"
+                lines[22] = int(lines[22]) + 1
+                lines[22] = str(lines[22]) + "\n"
+                payout = int(lines[17][:-1]) + random.randrange(24,50)
+                if payout > 100:
+                    payout = 100
+                await message.channel.send("you feed your pet for 20 jayebucks! you have {0} j$ remaining\nits happiness goes from {1} to {2}!".format(bal,lines[17][:-1],payout))
+                lines[17] = str(payout) + "\n"
+                with open("users/" + str(message.author.id) + ".txt", "w") as f:
+                    for line in lines:
+                        f.write(line)
+    elif message.content.startswith("j!pet"):
+        makeUserFile()
+        with open("users/" + str(message.author.id) + ".txt", "r") as f:
+            lines = f.readlines()
+        if lines[12][:-1] == "0":
+            await message.channel.send("you don't have a pet to check the stats of! first try 'j!pet buy' (this costs 200 jayebucks)!")
+        else:
+            birthday = datetime.strptime(lines[13][:-1], '%Y-%m-%d %H:%M:%S.%f')
+            birthday = birthday.date()
+            #level,experience,nextLevel
+            petStats = determineLevel(int(lines[16]) * 5)
+            await message.channel.send("name: **{0}** | date of birth: **{1}**\nexperience: **level {2}** ({3}/{4}) | current happiness: **{5}**/100\ntimes trained: **{6}** | times played with: **{7}** | times fed: **{8}**".format(lines[15][:-1],birthday,petStats[0],lines[16][:-1],petStats[2],lines[17][:-1],lines[19][:-1],lines[21][:-1],lines[22]))
+            await message.channel.send(lines[14][:-1]) 
+        
     ######################################
     #random number pickers:
     #coinflip games
@@ -494,20 +720,25 @@ async def on_message(message):
     elif message.content.startswith("j!myiq") or message.content.startswith("j!my iq"):
         flip = random.randint(1,10)
         if flip < 6: #5 values
-            flip = random.randint (80,120)
+            flip = random.randint(80,120)
         elif flip < 9: #4 values
-            flip = random.randint (1,2)
+            flip = random.randint(1,2)
             if flip == 1:
-                flip = random.randint (50,79)
+                flip = random.randint(50,79)
             else:
-                flip = random.randint (121,150)
+                flip = random.randint(121,150)
         else: #2 values
-            flip = random.randint (1,2)
+            flip = random.randint(1,2)
             if flip == 1:
-                flip = random.randint (1,49)
+                flip = random.randint(1,49)
             else:
-                flip = random.randint (151,200)
+                flip = random.randint(151,210)
         await message.channel.send("your IQ is {0}! :brain:".format(flip))
+    #rateme
+    elif message.content.startswith("j!rate "):
+        userInput = message.content[7:]
+        flip = random.randint(1,10)
+        await message.channel.send("hmmm... i rate {0} {1}/10".format(userInput,flip))
     #russian roulette
     elif message.content.startswith("j!rr"):
         num = message.content[4:]
