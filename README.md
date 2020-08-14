@@ -8,7 +8,7 @@ Each user can also buy a pet, which is randomized. They can then train the pet, 
 A non-exhaustive list of commands can be found in help.txt.
 
 --Guide:
-To run your own bot you will need to go to create an application on https://discordapp.com/developers/applications/, click to reveal 'client secret', and copy that into the TOKEN variable near the top of the code. You can look at how I've written commands here and copy and change whatever you want to.
-Note that if you were to use the code as-is, there would have to be a folder created called 'user' for storing people's money and prizes, and also that the emojis in the gacha section would need replacing (one of the bot's servers would need an emoji for every type of gacha capsule, and two wing emojis), but these are easy changes and the bot would otherwise work.
+To run your own bot you will need to go to create an application on https://discordapp.com/developers/applications/, click to reveal 'client secret', and copy that into the TOKEN variable near the top of the code. If you then run the code in Python, with discord.py installed, the bot will come online and you can invite it to your servers. You can look at how I've written commands here and copy and change whatever you want to. Some examples of how user data is laid out are in the 'users' file, with one blank file, and one with sample data and descriptions.
+Note that the emojis in the gacha section won't show up if you use that code as-is, and you may want to remove them, or replace them with emojis in a server that you are running the bot in.
 
 thank you
