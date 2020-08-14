@@ -1,0 +1,23 @@
+878 -Jayebucks balance (Line0)
+2020-08-14 03:19:55.343442 -Daily Timestamp (Line1)
+Rainbow:  [Kitsune] -Gacha Rewards List (Line2)
+Gold:  [Sphynx] [Cyberdemon] (Line3)
+Pink:  [Dog Girl] (Line4)
+Purple:  [Witch] [Zombie] (Line5)
+Green:  [Snail Girl] (Line6)
+Blue:  [Elf] [Dwarf] [Gnome] (Line7)
+2020-08-13 06:06:24.753082 -Mining Timestamp
+26 -Jayebucks Mined
+2020-08-13 05:02:20.520031 -Scavenging Timestamp
+45 -Jayebucks Scavenged
+1 -Pet Exists (1 or 0)
+2020-08-14 18:08:10.507738 -Date of Pet's Birth
+https://i.imgur.com/MWkg3T5.png -Link to Pet's Image
+junrei -Name of Pet
+85 -Pet Experience
+79 -Pet Happiness
+2020-08-14 22:36:21.101067 -Last Trained Timestamp
+7 -Times Trained With
+2020-08-14 22:36:27.226418 -Last Played Timestamp
+6 -Times Played With
+2 -Times Fed
