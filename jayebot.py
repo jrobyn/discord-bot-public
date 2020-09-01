@@ -111,7 +111,12 @@ async def on_message(message):
         bal = int(lines[0])    
         userInput = message.content[7:]
         userInput = userInput.split(' ')
-        idR = str(userInput[0])[:-1][3:]
+        print(str(userInput[0]))
+        idR = str(userInput[0])
+        idR = idR.replace('!','')
+        idR = idR.replace('@','')
+        idR = idR.replace('<','')
+        idR = idR.replace('>','')
         try:
             userInput[1] = int(userInput[1])
         except ValueError:
@@ -122,7 +127,7 @@ async def on_message(message):
         if userInput[1] > bal:
             await message.channel.send("you cannot afford to give {0}! you only have {1} jayebucks!".format(userInput[1],bal))
         else:
-            if len(idR) < 17 or len(idR) > 18 or idR.isnumeric() == False: #18 usually, 17 for some
+            if len(idR) < 17 or len(idR) > 18 or (idR.isnumeric()) == False: #18 usually, 17 for some
                 await message.channel.send("hmm... that doesn't look like a real user")
             else:
                 if userInput[1] > 0:
@@ -552,7 +557,8 @@ async def on_message(message):
                     if difference.seconds > 6:
                         training = petTrain()
                         lines = training[0]
-                        await message.channel.send("it earned **{0} exp** and now has {1}!\nit's hard work, so its happiness goes down to {2}/100".format(training[1],lines[16][:-1],lines[17][:-1]))
+                        petStats = determineLevel(int(lines[16]) * 5)
+                        await message.channel.send("you train your pet :muscle::book: **Level {0}** (**{1}**/{2})\nit earned **{4}** exp, but the hard work lowers its happiness to **{3}**/100".format(petStats[0],petStats[1],petStats[2],lines[17][:-1],training[1]))
                         rewards = random.randrange(6)
                         if rewards == 0:
                             payout = random.randrange(7,27)
@@ -577,7 +583,8 @@ async def on_message(message):
                 else:
                     training = petTrain()
                     lines = training[0]
-                    await message.channel.send("it earned **{0} exp** and now has {1}!\nit's hard work, so its happiness goes down to {2}/100".format(training[1],lines[16][:-1],lines[17][:-1]))
+                    petStats = determineLevel(int(lines[16]) * 5)
+                    await message.channel.send("you train your pet :muscle::book: **Level {0}** (**{1}**/{2})\nit earned **{4}** exp, but the hard work lowers its happiness to **{3}**/100".format(petStats[0],petStats[1],petStats[2],lines[17][:-1],training[1]))
                     rewards = random.randrange(6)
                     if rewards == 0:
                         payout = random.randrange(7,27)
@@ -610,7 +617,8 @@ async def on_message(message):
                 if difference.seconds > 6:
                     playing = petPlay()
                     lines = playing[0]
-                    await message.channel.send("you play with your pet :blush: :baseball:\nits happiness increased to {0}/100, and it earned {1} exp!".format(lines[17][:-1],playing[1]))
+                    petStats = determineLevel(int(lines[16]) * 5)
+                    await message.channel.send("you play with your pet :blush: :baseball: **Level {0}** (**{1}**/{2})\nit earned **{4}** exp, and its happiness increased to **{3}**/100!".format(petStats[0],petStats[1],petStats[2],lines[17][:-1],playing[1]))
                     rewards = random.randrange(6)
                     if rewards == 0:
                         payout = random.randrange(4,13)
@@ -635,7 +643,8 @@ async def on_message(message):
             else:
                 playing = petPlay()
                 lines = playing[0]
-                await message.channel.send("you play with your pet :blush: :baseball:\nits happiness increased to {0}/100, and it earned {1} exp!".format(lines[17][:-1],playing[1]))
+                petStats = determineLevel(int(lines[16]) * 5)
+                await message.channel.send("you play with your pet :blush: :baseball: **Level {0}** (**{1}**/{2})\nit earned **{4}** exp, and its happiness increased to **{3}**/100!".format(petStats[0],petStats[1],petStats[2],lines[17][:-1],playing[1]))
                 rewards = random.randrange(6)
                 if rewards == 0:
                     payout = random.randrange(4,13)
@@ -651,7 +660,7 @@ async def on_message(message):
                     await message.channel.send("also, on a walk, your pet found **{0} jayebucks** in a lost wallet!".format(payout))
                 with open("users/" + str(message.author.id) + ".txt", "w") as f:
                     for line in lines:
-                        f.write(line)    
+                        f.write(line)
     elif message.content.startswith("j!pet feed"):
         makeUserFile()
         with open("users/" + str(message.author.id) + ".txt", "r") as f:
