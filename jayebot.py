@@ -223,6 +223,8 @@ async def on_message(message):
                 lines[8] = str(datetime.now()) + "\n"
                 rewards = genericMine(9)
                 await message.channel.send("you mine {0} jayebuck(s), and now have {1}! :dollar: :pick:".format(rewards[0],rewards[1]))
+		msg = random.choice(open("rand/mine.txt").readlines())
+                await message.channel.send(msg)
             else:
                 if leftToWait > 0:
                     await message.channel.send("there's a 6 second cooldown, so you need to wait at least {0} more seconds!".format(leftToWait))
@@ -244,6 +246,8 @@ async def on_message(message):
             if difference.seconds > 6:
                 lines[10] = str(datetime.now()) + "\n"
                 rewards = genericMine(11)
+                msg = random.choice(open("rand/scavenge.txt").readlines())
+                await message.channel.send(msg)
                 await message.channel.send("you scavenge {0} jayebuck(s), and now have {1}! <a:scavenger:724272300882657320>".format(rewards[0],rewards[1]))
             else:
                 if leftToWait > 0:
